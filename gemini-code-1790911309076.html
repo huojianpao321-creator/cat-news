@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>晚间小猫报</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            width: 100%;
+            max-height: 400px;
+            overflow: hidden;
+            background-color: #1a1a2e;
+            display: flex;
+            justify-content: center;
+        }
+        .header img {
+            width: 100%;
+            max-width: 1200px;
+            height: auto;
+            display: block;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #222;
+            margin-bottom: 30px;
+        }
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .news-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px 24px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid #f3ba2f;
+        }
+        .news-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        .news-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #333;
+        }
+        .news-date {
+            font-size: 0.9em;
+            color: #888;
+        }
+        @media (max-width: 600px) {
+            .news-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .news-date {
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部封面 -->
+    <div class="header">
+        <img src="Gemini_Generated_Image_73oev973oev973oe.jpg" alt="晚间小猫报封面">
+    </div>
+
+    <div class="container">
+        <h1>往期回顾</h1>
+        <div class="news-list" id="news-list">
+            <!-- 链接卡片将通过下方JavaScript自动生成 -->
+        </div>
+    </div>
+
+    <script>
+        // 您的推文链接数据库（按最新到最旧排序）
+        const newsData = [
+            {
+                date: "2026-10-01",
+                title: "晚间小猫报：加密·人生·智慧",
+                url: "https://app.binance.com/uni-qr/cart/372610209951789?l=zh-CN&r=OHHS7HIP&uc=web_square_share_link&uco=Xh8iMxW0Fo4biu1bSQ07Og&us=copylink"
+            },
+            {
+                date: "2026-09-30",
+                title: "晚间小猫报：加密·人生·智慧",
+                url: "https://app.binance.com/uni-qr/cart/372205990214959?l=zh-CN&r=OHHS7HIP&uc=web_square_share_link&uco=Xh8iMxW0Fo4biu1bSQ07Og&us=copylink"
+            },
+            {
+                date: "2026-09-29",
+                title: "晚间小猫报：加密·人生·智慧",
+                url: "https://app.binance.com/uni-qr/cart/371866475745835?l=zh-CN&r=OHHS7HIP&uc=web_square_share_link&uco=Xh8iMxW0Fo4biu1bSQ07Og&us=copylink"
+            },
+            {
+                date: "2026-09-28",
+                title: "晚间小猫报：加密·人生·智慧",
+                url: "https://app.binance.com/uni-qr/cart/371468202969564?l=zh-CN&r=OHHS7HIP&uc=web_square_share_link&uco=Xh8iMxW0Fo4biu1bSQ07Og&us=copylink"
+            },
+            {
+                date: "2026-09-27",
+                title: "晚间小猫报：加密·人生·智慧",
+                url: "https://app.binance.com/uni-qr/cart/371177015676563?l=zh-CN&r=OHHS7HIP&uc=web_square_share_link&uco=Xh8iMxW0Fo4biu1bSQ07Og&us=copylink"
+            },
+            {
+                date: "2026-09-26",
+                title: "晚间小猫报：加密·人生·智慧",
+                url: "https://app.binance.com/uni-qr/cart/370852962373228?l=zh-CN&r=OHHS7HIP&uc=web_square_share_link&uco=Xh8iMxW0Fo4biu1bSQ07Og&us=copylink"
+            },
+            {
+                date: "2026-09-25",
+                title: "晚间小猫报：加密·人生·智慧",
+                url: "https://app.binance.com/uni-qr/cart/370458772545073?l=zh-CN&r=OHHS7HIP&uc=web_square_share_link&uco=Xh8iMxW0Fo4biu1bSQ07Og&us=copylink"
+            },
+            {
+                date: "2026-09-24",
+                title: "晚间小猫报：加密·人生·智慧",
+                url: "https://app.binance.com/uni-qr/cart/370122866997308?l=zh-CN&r=OHHS7HIP&uc=web_square_share_link&uco=Xh8iMxW0Fo4biu1bSQ07Og&us=copylink"
+            }
+        ];
+
+        // 将数据渲染到网页上
+        const newsListContainer = document.getElementById('news-list');
+        
+        newsData.forEach(item => {
+            const card = document.createElement('a');
+            card.className = 'news-card';
+            card.href = item.url;
+            card.target = '_blank'; // 点击后在新标签页打开
+
+            const titleSpan = document.createElement('span');
+            titleSpan.className = 'news-title';
+            titleSpan.textContent = item.title;
+
+            const dateSpan = document.createElement('span');
+            dateSpan.className = 'news-date';
+            dateSpan.textContent = item.date;
+
+            card.appendChild(titleSpan);
+            card.appendChild(dateSpan);
+            newsListContainer.appendChild(card);
+        });
+    </script>
+</body>
+</html>
